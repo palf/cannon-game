@@ -2,7 +2,7 @@ var express = require('express')
   , routes = require('./routes')
   // , user = require('./routes/user')
   , http = require('http')
-  // , path = require('path');
+  , path = require('path');
 
 // io.configure(function () {
 //   io.set("transports", ["xhr-polling"]);
@@ -19,7 +19,7 @@ app.set('view engine', 'jade');
 // app.use(express.bodyParser());
 // app.use(express.methodOverride());
 // app.use(app.router);
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // // development only
 // if ('development' == app.get('env')) {

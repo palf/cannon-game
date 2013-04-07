@@ -1,6 +1,32 @@
 extends layout
 
+block styles
+  //- <title>Palf :: Impulse Remote</title>
+  //- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  //- <script src="http://code.jquery.com/jquery.js"></script>
+  link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+
+
 block content
-  h1= title
-  p Welcome to #{title}
+  .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          a.brand Palf :: Cannon
+
+  .container
+    .row
+      .span4
+        h2 Remote
+        p The controller for the game
+        a.btn(href="/pages/hammer.html") Hammer &raquo;
+
+      .span4
+        h2 World
+        p The game world
+        a.btn(href="/pages/world.html") World &raquo;
+
+    hr
+
+    footer
+      p Can you believe I do this for a living?
 
