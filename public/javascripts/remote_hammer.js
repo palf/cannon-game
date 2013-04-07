@@ -1,11 +1,10 @@
-var element = document.getElementById("touch_area");
-var hammertime = Hammer(element, {
+var touch_area = document.getElementById("touch_area");
+var hammertime = Hammer(touch_area, {
   transform: false
 });
 
 
 var start_position = {};
-// var socket = io.connect();
 
 
 hammertime.on("dragstart", function(event) {

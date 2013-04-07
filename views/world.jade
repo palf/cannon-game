@@ -2,24 +2,12 @@ extends layout
 
 block styles
   link(rel='stylesheet', href='/stylesheets/world.css')
+  script(src="/javascripts/third_party/Box2D.js")
+  script(src="/javascripts/third_party/socket.io.js")
+  script(src="/javascripts/box2d_test.js")
+  script(src="/javascripts/world_entities.js")
 
 block content
-  h1= title
-  p World!  #{title}
+  canvas#world(width=600, height=360)
+  script(src='/javascripts/world_init.js')
 
-
-
-//-   <script src="../scripts/third_party/Box2D.js"></script>
-//-   <script src="../scripts/third_party/socket.io.js"></script>
-//-   <script src="../scripts/box2d_test.js"></script>
-//-   <script src="../scripts/entity_types.js"></script>
-//-   <link rel="stylesheet" href="../css/impulse.css" type="text/css">
-//- </head>
-
-
-//- <body>
-//-   <canvas id="canvas" width=640 height=400 />
-//-   <script src="../scripts/impulse_socket.js"></script>
-//- </body>
-
-//- </html>
