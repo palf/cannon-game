@@ -1,6 +1,5 @@
 var express = require('express')
   , routes = require('./routes')
-  // , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
 
@@ -27,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }
 
 app.get('/', routes.index);
+app.get('/remote', routes.remote);
+app.get('/world', routes.world);
 
 http.createServer(app).listen(port, function() {
   console.log("Listening on " + port);
