@@ -14,11 +14,15 @@ To install, run the following:
     npm install
     node app
 
-You can then navigate to http://localhost:5000 to see the landing page.
+You can then navigate to [http://localhost:5000](http://localhost:5000) to see the landing page.
+
+As this app is intended to run on [Heroku](https://www.heroku.com/), if you have the [command-line tools](https://devcenter.heroku.com/categories/command-line) installed, you can run:
+
+    foreman start
 
 ## Usage
 
-Once you are up and running, you can open the landing page at [http://your.ip.address:5000](http://localhost:5000). It has links to the Remote and World pages, as well as supplementary information. I recommend opening the World page first.
+Once you are up and running, you can open the landing page at [http://your.ip.address:5000](http://palf-cannon.herokuapp.com). It has links to the Remote and World pages, as well as supplementary information. I recommend opening the World page first.
 
 * [Remote](http://palf-cannon.herokuapp.com/remote)
   * this page has a large blue shape that expects drag events and gestures
