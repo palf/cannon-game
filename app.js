@@ -22,12 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }
 
 
-// io.configure(function () {
-//   io.set("transports", ["xhr-polling"]);
-//   io.set("polling duration", 10);
-// });
-
-
 
 
 app.get('/', routes.index);
@@ -37,6 +31,14 @@ app.get('/world', routes.world);
 
 var http_server = http.createServer(app)
 var io_server = io.listen(http_server);
+
+
+
+io_server.configure(function () {
+  io_server.set("transports", ["xhr-polling"]);
+  io_server.set("polling duration", 10);
+});
+
 
 
 http_server.listen(port, function() {
