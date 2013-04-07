@@ -1,12 +1,8 @@
 var express = require('express')
   , routes = require('./routes')
   , http = require('http')
+  , io = require('socket.io')
   , path = require('path');
-
-// io.configure(function () {
-//   io.set("transports", ["xhr-polling"]);
-//   io.set("polling duration", 10);
-// });
 
 var app = express()
 var port = process.env.PORT || 5000;
@@ -25,11 +21,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   app.use(express.errorHandler());
 // }
 
+
+// io.configure(function () {
+//   io.set("transports", ["xhr-polling"]);
+//   io.set("polling duration", 10);
+// });
+
+
+
+
 app.get('/', routes.index);
 app.get('/remote', routes.remote);
 app.get('/world', routes.world);
 
-http.createServer(app).listen(port, function() {
-  console.log("Listening on " + port);
+
+var http_server = http.createServer(app)
+var io_server = io.listen(http_server);
+
+
+http_server.listen(port, function() {
+  console.log("Listening on port " + port);
 });
 
+io_server.sockets.on('connection', function (socket) {
+  console.log('socket io running')
+  socket.on('on hammer', function (data) {
+    console.log('recieved hammer');
+    socket.broadcast.emit('hammer data', data);
+  });
+});
