@@ -6,25 +6,13 @@ block styles
 
 
 block content
-  .navbar.navbar-inverse.navbar-fixed-top
-      .navbar-inner
-        .container
-          a.brand #{title}
+  .row
+    .span4
+      h2 Remote
+      p The controller for the game
+      a.btn(href="/remote") Remote &raquo;
 
-  .container
-    .row
-      .span4
-        h2 Remote
-        p The controller for the game
-        a.btn(href="/remote") Remote &raquo;
-
-      .span4
-        h2 World
-        p The game world
-        a.btn(href="/world") World &raquo;
-
-    hr
-
-    footer
-      p Can you believe I do this for a living?
-
+    .span4
+      h2 World
+      p The game world
+      a.btn(href="/world") World &raquo;
