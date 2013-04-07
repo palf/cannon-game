@@ -1,12 +1,15 @@
-
-
 .drag {
     position: absolute;
-    left: 5%;
-    top: 5%;
+    /*left: 5%;*/
+    /*top: 5%;*/
+    /*width: 90%;*/
+    /*height: 90%;*/
+
+    left: 20px;
+    right: 20px;
+    top: 60px;
+    bottom: 20px;
+
     background: #9fe1e7;
     border-radius: 50px;
-    width: 90%;
-    height: 90%;
 }
-
