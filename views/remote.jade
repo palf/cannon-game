@@ -4,9 +4,9 @@ extends layout
 block styles
   link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
   link(rel="stylesheet", href="/stylesheets/remote.css")
-  //- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-  //- <script src="../scripts/third_party/socket.io.js"></script>
-  //- <script src="../scripts/third_party/hammer.js"></script>
+  //- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js")
+  //- script(src="javascripts/third_party/socket.io.js")
+  script(src="javascripts/third_party/hammer.js")
 
 
 
@@ -21,7 +21,7 @@ block content
 
     #touch_area.drag
 
-    //- script(src='/javascripts/remote.js')
+    script(src='/javascripts/remote_hammer.js')
 
     hr
 
