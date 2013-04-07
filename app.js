@@ -1,22 +1,19 @@
-var express = require('express');
-var http = require('http')
+var express = require('express')
+  , routes = require('./routes')
+  // , user = require('./routes/user')
+  , http = require('http')
+  // , path = require('path');
 
+// io.configure(function () {
+//   io.set("transports", ["xhr-polling"]);
+//   io.set("polling duration", 10);
+// });
 
 var app = express()
 var port = process.env.PORT || 5000;
 
-app.get('/', function(request, response) {
-  response.send('Hello World!');
-});
-
-http.createServer(app).listen(port, function() {
-  console.log("Listening on " + port);
-});
-
-
-
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
 // app.use(express.favicon());
 // app.use(express.logger('dev'));
 // app.use(express.bodyParser());
@@ -29,9 +26,9 @@ http.createServer(app).listen(port, function() {
 //   app.use(express.errorHandler());
 // }
 
-// app.get('/', routes.index);
-// app.get('/users', user.list);
+app.get('/', routes.index);
 
-// http.createServer(app).listen(app.get('port'), function(){
-//   console.log('Express server listening on port ' + app.get('port'));
-// });
+http.createServer(app).listen(port, function() {
+  console.log("Listening on " + port);
+});
+
