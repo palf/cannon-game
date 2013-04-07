@@ -1,42 +1,4 @@
-@keyframes highlight {
-    0%{ background: rgba(255, 240, 140, 1); }
-    100%{ background: rgba(255, 240, 140, 0); }
-}
 
-@-moz-keyframes highlight{
-    0%{ background: rgba(255, 240, 140, 1); }
-    100%{ background: rgba(255, 240, 140, 0); }
-}
-
-@-webkit-keyframes highlight{
-    0%{ background: rgba(255, 240, 140, 1); }
-    100%{ background: rgba(255, 240, 140, 0); }
-}
-
-
-body {
-    padding: 0;
-}
-
-#container {
-    padding: 20px;
-}
-
-.highlight {
-    background: #ccc68d;
-}
-
-.highlight2 {
-    background: #fff68d;
-}
-
-.hero-unit {
-    padding: 0;
-}
-
-#touch_area {
-    /*padding: 30px;*/
-}
 
 .drag {
     position: absolute;
@@ -47,3 +9,4 @@ body {
     width: 90%;
     height: 90%;
 }
+
