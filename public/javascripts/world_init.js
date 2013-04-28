@@ -5,8 +5,8 @@ window.requestAnimFrame = (function(){
 })();
 
 
-var power_value = 40;
-var angle_value = 30;
+var power = 40;
+var angle = 30;
 var bullet_value = true;
 
 var SCALE = 10;
@@ -19,41 +19,47 @@ var box = null;
 var ctx = document.getElementById("world").getContext("2d");
 var canvasWidth = ctx.canvas.width;
 var canvasHeight = ctx.canvas.height;
+var center = {
+  x : canvasWidth / ( 2 * SCALE ),
+  y : canvasHeight / ( 2 * SCALE )
+}
+var canvas_width = canvasWidth / SCALE;
+var canvas_height = canvasHeight / SCALE;
 
 
 ground = {
   id: "ground",
-  x: (canvasWidth/2) / SCALE,
-  y: canvasHeight / SCALE,
+  x: center.x,
+  y: canvas_height,
   halfHeight: 0.5,
-  halfWidth: (canvasWidth/2) / SCALE,
+  halfWidth: center.x,
   color: 'yellow'
 }
 
 left_wall = {
   id: "left_wall",
   x: 0,
-  y: (canvasHeight/2) / SCALE,
-  halfHeight: (canvasHeight/2) / SCALE - 0.5,
+  y: center.y,
+  halfHeight: center.y - 0.5,
   halfWidth: 0.5,
   color: 'yellow'
 }
 
 right_wall = {
   id: "right_wall",
-  x: canvasWidth / SCALE,
-  y: (canvasHeight/2) / SCALE,
-  halfHeight: (canvasHeight/2) / SCALE - 0.5,
+  x: canvas_width,
+  y: center.y,
+  halfHeight: center.y - 0.5,
   halfWidth: 0.5,
   color: 'yellow'
 }
 
 ceiling = {
   id: "ceiling",
-  x: (canvasWidth/2) / SCALE,
+  x: center.x,
   y: 0,
   halfHeight: 0.5,
-  halfWidth: (canvasWidth/2) / SCALE,
+  halfWidth: center.x,
   color: 'yellow'
 }
 
@@ -62,23 +68,31 @@ var initialState = [
   left_wall,
   right_wall,
   ceiling,
-  {id: "b1", x:17, y: canvasHeight / SCALE - 1, halfHeight: 2, halfWidth: 0.10},
-  {id: "b2", x:17, y: canvasHeight / SCALE - 5, halfHeight: 0.25, halfWidth: 2}
+  {id: "b1", x:50 - 1, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
+  {id: "b2", x:50 + 1, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
+  {id: "b3", x:56 - 1, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
+  {id: "b4", x:56 + 1, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
+  {id: "b5", x:53, y: canvas_height - 6, halfHeight: 0.25, halfWidth: 5},
+
+  {id: "b11", x:50 - 1, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
+  {id: "b12", x:50 + 1, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
+  {id: "b13", x:56 - 1, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
+  {id: "b14", x:56 + 1, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
+  {id: "b15", x:53, y: canvas_height - 11, halfHeight: 0.25, halfWidth: 4}
 ];
 
-var ball_def = {id: "ball", x: 2, y: canvasHeight / SCALE - 2, radius: 0.5}
+var ball_def = {id: "ball", x: 2, y: canvas_height - 2, radius: 0.5}
 
 var running = true;
-var restart = false;
-
+var waiting_for_ball = false;
 
 
 
 var socket = io.connect();
-socket.on("hammer data", function (data) {
-  angle_value = data['angle']
-  power_value = data['power']
-  restart = true
+socket.on("gesture data", function (data) {
+  angle = data['angle']
+  power = data['power']
+  waiting_for_ball = true
 });
 
 
@@ -108,31 +122,39 @@ function init() {
   for (var i = 0; i < initialState.length; i++) {
     world[initialState[i].id] = Entity.build(initialState[i]);
   }
-
-  add_ball()
+  create_box();
 }
 
 var id = 0;
 
 function add_ball() {
+  console.log('adding ball')
   new_id = 'ball' + id.toString();
-  ball_def['id'] = new_id
-  world[new_id] = Entity.build(ball_def);
+  ball_def.id = new_id
+  entity = Entity.build(ball_def);
+  world[new_id] = entity;
+  box.addBallBody(entity);
+  box.applyImpulse(new_id, angle, power);
+  id += 1
+}
+
+
+function create_box() {
   box = new bTest(60, false, canvasWidth, canvasHeight, SCALE);
   box.setBodies(world, bullet_value);
-  box.applyImpulse(new_id, angle_value, power_value);
-  id += 1
 }
 
 
 document.addEventListener("DOMContentLoaded", function() {
   init();
+  create_box();
 
   (function loop(animStart) {
-    if (restart) {
+    if (waiting_for_ball) {
+      console.log('waiting_for_ball')
       // init();
       add_ball();
-      restart = false;
+      waiting_for_ball = false;
     }
     update(animStart);
     draw();

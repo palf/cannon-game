@@ -63,7 +63,7 @@ bTest.prototype.setBodies = function(bodyEntities, enableBullet) {
     for(var id in bodyEntities) {
         var entity = bodyEntities[id];
 
-        if (entity.id == 'ground') {
+        if (entity.id == 'ground' || entity.id == 'ceiling') {
             bodyDef.type = b2Body.b2_staticBody;
         } else {
             bodyDef.type = b2Body.b2_dynamicBody;
@@ -101,6 +101,21 @@ bTest.prototype.setBodies = function(bodyEntities, enableBullet) {
     this.ready = true;
 }
 
+bTest.prototype.addBallBody = function(entity) {
+    var bodyDef = new b2BodyDef;
+    bodyDef.type = b2Body.b2_dynamicBody;
+
+    bodyDef.position.x = entity.x;
+    bodyDef.position.y = entity.y;
+    bodyDef.userData = entity.id;
+    bodyDef.angle = entity.angle;
+    bodyDef.bullet = true;
+    var body = this.registerBody(bodyDef);
+
+    this.fixDef.shape = new b2CircleShape(entity.radius);
+    body.CreateFixture(this.fixDef);
+}
+
 bTest.prototype.registerBody = function(bodyDef) {
     var body = this.world.CreateBody(bodyDef);
     this.bodiesMap[body.GetUserData()] = body;
@@ -122,6 +137,7 @@ bTest.prototype.addRevoluteJoint = function(body1Id, body2Id, params) {
 
 bTest.prototype.applyImpulse = function(bodyId, degrees, power) {
     var body = this.bodiesMap[bodyId];
+console.log(this.bodiesMap)
     body.ApplyImpulse(new b2Vec2(Math.cos(degrees * (Math.PI / 180)) * power,
                                  Math.sin(degrees * (Math.PI / 180)) * power),
                                  body.GetWorldCenter());
