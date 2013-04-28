@@ -63,7 +63,7 @@ bTest.prototype.setBodies = function(bodyEntities, enableBullet) {
     for(var id in bodyEntities) {
         var entity = bodyEntities[id];
 
-        if (entity.id == 'ground' || entity.id == 'ceiling') {
+        if (entity.id == 'ground' || entity.id == 'ceiling' || entity.id == 'left_wall' || entity.id == 'right_wall') {
             bodyDef.type = b2Body.b2_staticBody;
         } else {
             bodyDef.type = b2Body.b2_dynamicBody;
@@ -137,7 +137,6 @@ bTest.prototype.addRevoluteJoint = function(body1Id, body2Id, params) {
 
 bTest.prototype.applyImpulse = function(bodyId, degrees, power) {
     var body = this.bodiesMap[bodyId];
-console.log(this.bodiesMap)
     body.ApplyImpulse(new b2Vec2(Math.cos(degrees * (Math.PI / 180)) * power,
                                  Math.sin(degrees * (Math.PI / 180)) * power),
                                  body.GetWorldCenter());
