@@ -7,6 +7,7 @@ window.requestAnimFrame = (function(){
 
 var power = 40;
 var angle = 30;
+var color = 'green';
 var bullet_value = true;
 
 var SCALE = 10;
@@ -63,22 +64,24 @@ ceiling = {
   color: 'yellow'
 }
 
+var structure_centre = 75;
+
 var initialState = [
   ground,
   left_wall,
   right_wall,
   ceiling,
-  {id: "b1", x:50 - 1, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
-  {id: "b2", x:50 + 1, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
-  {id: "b3", x:56 - 1, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
-  {id: "b4", x:56 + 1, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
-  {id: "b5", x:53, y: canvas_height - 6, halfHeight: 0.25, halfWidth: 5},
+  {id: "b1", x:structure_centre - 4, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
+  {id: "b2", x:structure_centre - 2, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
+  {id: "b3", x:structure_centre + 2, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
+  {id: "b4", x:structure_centre + 4, y: canvas_height - 2, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
+  {id: "b5", x:structure_centre, y: canvas_height - 6, halfHeight: 0.25, halfWidth: 5},
 
-  {id: "b11", x:50 - 1, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
-  {id: "b12", x:50 + 1, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
-  {id: "b13", x:56 - 1, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
-  {id: "b14", x:56 + 1, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
-  {id: "b15", x:53, y: canvas_height - 11, halfHeight: 0.25, halfWidth: 4}
+  {id: "b11", x:structure_centre - 4, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
+  {id: "b12", x:structure_centre - 2, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
+  {id: "b13", x:structure_centre + 2, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: -2.8},
+  {id: "b14", x:structure_centre + 4, y: canvas_height - 8, halfHeight: 2, halfWidth: 0.10, angle: 2.8},
+  {id: "b15", x:structure_centre, y: canvas_height - 11, halfHeight: 0.25, halfWidth: 4}
 ];
 
 var ball_def = {id: "ball", x: 2, y: canvas_height - 2, radius: 0.5}
@@ -92,6 +95,7 @@ var socket = io.connect();
 socket.on("gesture data", function (data) {
   angle = data['angle']
   power = data['power']
+  color = data['color']
   waiting_for_ball = true
 });
 
@@ -131,6 +135,7 @@ function add_ball() {
   console.log('adding ball')
   new_id = 'ball' + id.toString();
   ball_def.id = new_id
+  ball_def.color = color;
   entity = Entity.build(ball_def);
   world[new_id] = entity;
   box.addBallBody(entity);

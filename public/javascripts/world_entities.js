@@ -57,14 +57,14 @@ CircleEntity.prototype.draw = function(ctx) {
   ctx.beginPath();
   ctx.arc(this.x * SCALE, this.y * SCALE, this.radius * SCALE, 0, Math.PI * 2, true);
   ctx.moveTo(this.x * SCALE, this.y * SCALE);
-  ctx.lineTo((this.x) * SCALE, (this.y + this.radius) * SCALE);
+  // ctx.lineTo((this.x) * SCALE, (this.y + this.radius) * SCALE);
   ctx.closePath();
   ctx.fill();
   ctx.stroke();
 
   ctx.restore();
 
-  Entity.prototype.draw.call(this, ctx);
+  // Entity.prototype.draw.call(this, ctx);
 }
 
 function RectangleEntity(id, x, y, angle, center, color, halfWidth, halfHeight) {
