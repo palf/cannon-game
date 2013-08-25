@@ -6,7 +6,16 @@ var hammertime = Hammer(touch_area, {
 
 var start_position = {};
 
-var colors = ['#FF82AB', '#BF3EFF', '#9FE1E7', '#5D478B', '#6495ED', '#43CD80'];
+var colors = [
+    '#FF82AB',
+    '#BF3EFF',
+    '#9FE1E7',
+    '#5D478B',
+    '#6495ED',
+    '#43CD80',
+    '#FF6600'
+];
+
 var color = colors[Math.floor(Math.random() * colors.length)];
 console.log(color)
 touch_area.style.background = color;
